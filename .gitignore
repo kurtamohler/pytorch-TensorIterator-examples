@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# libtorch download
+libtorch*
+
+# build directory
+build

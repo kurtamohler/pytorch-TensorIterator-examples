@@ -1,0 +1,6 @@
+name: pytorch-TensorIterator-examples
+channels:
+  - conda-forge
+dependencies:
+  - python=3
+  - cmake
