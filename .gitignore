@@ -36,3 +36,6 @@ libtorch*
 
 # build directory
 build
+
+# vim swp files
+.*.swp
