@@ -30,7 +30,7 @@ void example1() {
 
 void example2() {
   at::Tensor a = at::randn({10});
-  at::Tensor out = at::zeros({10});
+  at::Tensor out = at::randn({10});
   std::cout
     << "\n==========\n"
     << "example2:"
@@ -55,9 +55,9 @@ void example2() {
     auto* out_data = data[0];
     auto* in_data = data[1];
 
-    for (int i = 0; i < n; i++) {
+    for (int64_t i = 0; i < n; i++) {
       // assume float data type for this example
-      *reinterpret_cast<float*>(out_data) += *reinterpret_cast<float*>(in_data);
+      *reinterpret_cast<float*>(out_data) = *reinterpret_cast<float*>(in_data);
       out_data += strides[0];
       in_data += strides[1];
     }
@@ -138,15 +138,15 @@ void example4() {
     auto* result_data_bytes = data[0];
     const auto* self_data_bytes = data[1];
 
-    for (int64_t i = 0; i < n; ++i) {
+    for (int64_t vector_idx = 0; vector_idx < n; ++vector_idx) {
 
       // Calculate cumulative sum for each element of the vector
       auto cumulative_sum = (at::acc_type<float, false>) 0;
-      for (int64_t i = 0; i < self_dim_size; ++i) {
+      for (int64_t elem_idx = 0; elem_idx < self_dim_size; ++elem_idx) {
         const auto* self_data = reinterpret_cast<const float*>(self_data_bytes);
         auto* result_data = reinterpret_cast<float*>(result_data_bytes);
-        cumulative_sum += self_data[i * self_dim_stride];
-        result_data[i * result_dim_stride] = (float)cumulative_sum;
+        cumulative_sum += self_data[elem_idx * self_dim_stride];
+        result_data[elem_idx * result_dim_stride] = (float)cumulative_sum;
       }
 
       // Go to the next vector
