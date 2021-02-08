@@ -1,0 +1,20 @@
+name: run-examples-actions
+on: [push]
+jobs:
+  run-examples:
+    name: run-examples Linux
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: pytorch-TensorIterator-examples
+          environment-file: environment.yml
+          python-version: 3.9
+          auto-activate-base: false
+      - run: ./download-libtorch.sh
+      - run: ./build.sh
+      - run: ./build/examples
