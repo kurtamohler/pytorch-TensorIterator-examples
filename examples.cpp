@@ -192,7 +192,7 @@ void example5() {
 
     *reinterpret_cast<float*>(out_data) = 0;
 
-    for (int i = 0; i < n; i++) {
+    for (int64_t i = 0; i < n; i++) {
       // assume float data type for this example
       *reinterpret_cast<float*>(out_data) += *reinterpret_cast<float*>(in_data);
       in_data += strides[1];
