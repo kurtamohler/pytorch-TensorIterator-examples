@@ -66,7 +66,7 @@ void example2() {
   iter.for_each(copy_loop);
   //======== End blog post code ===========
 
-  assert((out == a).all().item<bool>());
+  assert(at::allclose(a, out));
   std::cout << "PASS" << std::endl;
 }
 
@@ -94,7 +94,7 @@ void example3() {
   });
   //======== End blog post code ===========
 
-  assert((a + b).eq(c).all().item<bool>());
+  assert(at::allclose(a + b, c));
   std::cout << "PASS" << std::endl;
 }
 
@@ -158,7 +158,7 @@ void example4() {
   iter.for_each(loop);
   //======== End blog post code ===========
 
-  assert(result.eq(self.cumsum(dim)).all().item<bool>());
+  assert(at::allclose(result, self.cumsum(dim)));
   std::cout << "PASS" << std::endl;
 }
 
@@ -202,7 +202,7 @@ void example5() {
   iter.for_each(sum_reduce_loop);
   //======== End blog post code ===========
 
-  assert((self.sum(dim, keepdim) - result).abs().lt(0.00001).all().item<bool>());
+  assert(at::allclose(result, self.sum(dim, keepdim)));
   std::cout << "PASS" << std::endl;
 }
 
