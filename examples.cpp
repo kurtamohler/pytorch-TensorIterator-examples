@@ -169,11 +169,11 @@ void example5() {
     << std::endl;
 
   //======== Start blog post code =========
-  at::Tensor self = at::randn({10, 10});
+  at::Tensor self = at::randn({10, 10, 10});
   int64_t dim = 1;
   bool keepdim = false;
 
-  // `make_reduction` will allocate result Tensor for us, so we
+  // `make_reduction` will allocate result tensor for us, so we
   // can leave it undefined
   at::Tensor result;
 
@@ -189,6 +189,8 @@ void example5() {
   auto sum_reduce_loop = [](char** data, const int64_t* strides, int64_t n) {
     auto* out_data = data[0];
     auto* in_data = data[1];
+
+    assert(strides[0] == 0);
 
     *reinterpret_cast<float*>(out_data) = 0;
 
